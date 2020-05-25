@@ -1,13 +1,13 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './pages/Login/index';
-import Register from './pages/Register/index';
-import ForgotPassword from './pages/ForgotPassword/index';
+import Login from '../pages/Login/index';
+import Register from '../pages/Register/index';
+import ForgotPassword from '../pages/ForgotPassword/index';
 
 const Stack = createStackNavigator();
 
-function Routes() {
+function AuthRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -27,4 +27,4 @@ function Routes() {
   );
 }
 
-export default Routes;
+export default AuthRoutes;

@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import {
   Text, View, ScrollView, Image, TextInput, TouchableOpacity,
 } from 'react-native';
+
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthContext } from '../../contexts/auth';
 import styles from './styles';
 
 export default function Register() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
+  const { registerLocal } = useContext(AuthContext);
+
+  function handleRegister() {
+    if (!email) return alert('Digite seu Email');
+    if (!password) return alert('Digite sua senha');
+    if (!confirmPassword) return alert('Digite a confirmação da senha');
+    if (password !== confirmPassword) return alert('A senha e a confirmação de senha precisam ser iguais');
+
+    return registerLocal(email, password, confirmPassword);
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.topContainer}>
@@ -24,6 +41,7 @@ export default function Register() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              onChangeText={(e) => setEmail(e)}
             />
             <TextInput
               placeholder="Senha"
@@ -31,6 +49,8 @@ export default function Register() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              secureTextEntry
+              onChangeText={(e) => setPassword(e)}
             />
             <TextInput
               placeholder="Confirmar senha"
@@ -38,11 +58,15 @@ export default function Register() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              secureTextEntry
+              onChangeText={(e) => setConfirmPassword(e)}
             />
-            <TouchableOpacity style={{
-              ...styles.authButton,
-              ...styles.emailAuthButton,
-            }}
+            <TouchableOpacity
+              style={{
+                ...styles.authButton,
+                ...styles.emailAuthButton,
+              }}
+              onPress={handleRegister}
             >
               <View style={styles.viewIcon}>
                 <Icon

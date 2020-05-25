@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Text, View, ScrollView, Image, TextInput, TouchableOpacity,
 } from 'react-native';
@@ -8,7 +8,19 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
 export default function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const navigation = useNavigation();
+
+  function handleLogin() {
+    if (!email) return alert('Digite seu Email');
+
+    if (!password) return alert('Digite sua senha');
+
+    // call API
+    return navigation.navigate('Home');
+  }
 
   return (
     <View style={styles.container}>
@@ -28,6 +40,7 @@ export default function Login() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              onChangeText={(e) => setEmail(e)}
             />
             <TextInput
               placeholder="Senha"
@@ -35,11 +48,15 @@ export default function Login() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              secureTextEntry
+              onChangeText={(e) => setPassword(e)}
             />
-            <TouchableOpacity style={{
-              ...styles.authButton,
-              ...styles.emailAuthButton,
-            }}
+            <TouchableOpacity
+              style={{
+                ...styles.authButton,
+                ...styles.emailAuthButton,
+              }}
+              onPress={handleLogin}
             >
               <View style={styles.viewIcon}>
                 <Icon
