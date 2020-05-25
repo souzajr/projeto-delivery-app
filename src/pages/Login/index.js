@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
-  Text, View, ScrollView, Image, TextInput, TouchableOpacity,
+  Text, View, ScrollView, Image, TextInput, TouchableOpacity, ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { AuthContext } from '../../contexts/auth';
+
 import styles from './styles';
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const {
+    loginLocal, loginFacebook, loginGoogle, loading,
+  } = useContext(AuthContext);
 
   const navigation = useNavigation();
 
@@ -18,8 +23,7 @@ export default function Login() {
 
     if (!password) return alert('Digite sua senha');
 
-    // call API
-    return navigation.navigate('Home');
+    return loginLocal(email, password);
   }
 
   return (
@@ -52,61 +56,83 @@ export default function Login() {
               onChangeText={(e) => setPassword(e)}
             />
             <TouchableOpacity
-              style={{
-                ...styles.authButton,
+              style={loading ? {
+                ...styles.authButtonLoading,
                 ...styles.emailAuthButton,
-              }}
+              } : { ...styles.authButton, ...styles.emailAuthButton }}
               onPress={handleLogin}
             >
-              <View style={styles.viewIcon}>
-                <Icon
-                  name="envelope"
-                  size={25}
-                  color="#fff"
-                  style={styles.iconButton}
-                />
-              </View>
-              <View style={styles.viewTextButton}>
-                <Text style={{ ...styles.textButton, color: '#fff' }}>
-                  Entrar com Email
-                </Text>
-              </View>
+              {loading ? (
+                <ActivityIndicator size={25} color="#fff" />
+              ) : (
+                <>
+                  <View style={styles.viewIcon}>
+                    <Icon
+                      name="envelope"
+                      size={25}
+                      color="#fff"
+                      style={styles.iconButton}
+                    />
+                  </View>
+                  <View style={styles.viewTextButton}>
+                    <Text style={{ ...styles.textButton, color: '#fff' }}>
+                      Entrar com Email
+                    </Text>
+                  </View>
+                </>
+              )}
             </TouchableOpacity>
-            <TouchableOpacity style={{
-              ...styles.authButton,
-              ...styles.facebookAuthButton,
-            }}
+            <TouchableOpacity
+              style={loading ? {
+                ...styles.authButtonLoading,
+                ...styles.facebookAuthButton,
+              } : { ...styles.authButton, ...styles.facebookAuthButton }}
+              onPress={() => loginFacebook()}
             >
-              <View style={styles.viewIcon}>
-                <Icon
-                  name="facebook-square"
-                  size={25}
-                  color="#fff"
-                  style={styles.iconButton}
-                />
-              </View>
-              <View style={styles.viewTextButton}>
-                <Text style={{ ...styles.textButton, color: '#fff' }}>
-                  Entrar com Facebook
-                </Text>
-              </View>
+              {loading ? (
+                <ActivityIndicator size={25} color="#fff" />
+              ) : (
+                <>
+                  <View style={styles.viewIcon}>
+                    <Icon
+                      name="facebook-square"
+                      size={25}
+                      color="#fff"
+                      style={styles.iconButton}
+                    />
+                  </View>
+                  <View style={styles.viewTextButton}>
+                    <Text style={{ ...styles.textButton, color: '#fff' }}>
+                      Entrar com Facebook
+                    </Text>
+                  </View>
+                </>
+              )}
             </TouchableOpacity>
-            <TouchableOpacity style={{
-              ...styles.authButton,
-              ...styles.googleAuthButton,
-            }}
+            <TouchableOpacity
+              style={loading ? {
+                ...styles.authButtonLoading,
+                ...styles.googleAuthButton,
+              } : { ...styles.authButton, ...styles.googleAuthButton }}
+              onPress={() => loginGoogle()}
             >
-              <View style={styles.viewIcon}>
-                <Image
-                  style={styles.iconGoogleButton}
-                  source={require('../../../assets/google.png')}
-                />
-              </View>
-              <View style={styles.viewTextButton}>
-                <Text style={{ ...styles.textButton, color: '#777' }}>
-                  Entrar com Google
-                </Text>
-              </View>
+              {loading ? (
+                <ActivityIndicator size={25} color="#777" />
+              ) : (
+                <>
+                  <View style={styles.viewIcon}>
+                    <Image
+                      style={styles.iconGoogleButton}
+                      source={require('../../../assets/google.png')}
+                    />
+                  </View>
+                  <View style={styles.viewTextButton}>
+                    <Text style={{ ...styles.textButton, color: '#777' }}>
+                      Entrar com Google
+                    </Text>
+                  </View>
+                </>
+              )}
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => navigation.navigate('Cadastro')}

@@ -1,12 +1,13 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import DrawerContent from '../components/Drawer/index';
 import Home from '../pages/Home/index';
 import Profile from '../pages/Profile/index';
 
 const Drawer = createDrawerNavigator();
 
-function AppRoutes() {
+export default function AppRoutes() {
   return (
     <Drawer.Navigator
       drawerStyle={{
@@ -23,6 +24,7 @@ function AppRoutes() {
           marginVertical: 5,
         },
       }}
+      drawerContent={(props) => <DrawerContent {...props} />}
     >
       <Drawer.Screen
         name="Home"
@@ -35,5 +37,3 @@ function AppRoutes() {
     </Drawer.Navigator>
   );
 }
-
-export default AppRoutes;

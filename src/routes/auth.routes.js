@@ -7,7 +7,7 @@ import ForgotPassword from '../pages/ForgotPassword/index';
 
 const Stack = createStackNavigator();
 
-function AuthRoutes() {
+export default function AuthRoutes() {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -26,5 +26,3 @@ function AuthRoutes() {
     </Stack.Navigator>
   );
 }
-
-export default AuthRoutes;
