@@ -9,7 +9,6 @@ export const Context = createContext();
 export default function ContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [cart, setCart] = useState(false);
 
   useEffect(() => {
     SplashScreen.preventAutoHide();
@@ -124,10 +123,6 @@ export default function ContextProvider({ children }) {
     }
   }
 
-  function openOrCloseCart() {
-    setCart(!!cart);
-  }
-
   return (
     <Context.Provider value={{
       signed: !!user,
@@ -138,8 +133,6 @@ export default function ContextProvider({ children }) {
       loginGoogle,
       removeUser,
       loading,
-      cart,
-      openOrCloseCart,
     }}
     >
       {children}
