@@ -1,6 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import {
-  Text, View, ScrollView, Image, TextInput, TouchableOpacity, ActivityIndicator,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -9,6 +17,8 @@ import { Context } from '../../contexts/index';
 import styles from './styles';
 
 export default function Login() {
+  const inputPassword = useRef(null);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -27,7 +37,10 @@ export default function Login() {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={styles.container}
+    >
       <View style={styles.topContainer}>
         <Image
           style={styles.logo}
@@ -44,6 +57,9 @@ export default function Login() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              returnKeyType="next"
+              onSubmitEditing={() => inputPassword.current.focus()}
+              keyboardType="email-address"
               onChangeText={(e) => setEmail(e)}
             />
             <TextInput
@@ -53,6 +69,8 @@ export default function Login() {
               autoCorrect={false}
               autoCapitalize="none"
               secureTextEntry
+              returnKeyType="go"
+              ref={inputPassword}
               onChangeText={(e) => setPassword(e)}
             />
             <TouchableOpacity
@@ -149,6 +167,6 @@ export default function Login() {
           </View>
         </ScrollView>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }

@@ -1,6 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import {
-  Text, View, ScrollView, Image, TextInput, TouchableOpacity, ActivityIndicator,
+  Text,
+  View,
+  ScrollView,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ActivityIndicator,
+  Platform,
+  KeyboardAvoidingView,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -8,6 +16,9 @@ import { Context } from '../../contexts/index';
 import styles from './styles';
 
 export default function Register() {
+  const inputPassword = useRef(null);
+  const inputConfirmPassword = useRef(null);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,7 +37,10 @@ export default function Register() {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
+      style={styles.container}
+    >
       <View style={styles.topContainer}>
         <Image
           style={styles.logo}
@@ -43,6 +57,9 @@ export default function Register() {
               placeholderTextColor="#777"
               autoCorrect={false}
               autoCapitalize="none"
+              returnKeyType="next"
+              onSubmitEditing={() => inputPassword.current.focus()}
+              keyboardType="email-address"
               onChangeText={(e) => setEmail(e)}
             />
             <TextInput
@@ -52,6 +69,9 @@ export default function Register() {
               autoCorrect={false}
               autoCapitalize="none"
               secureTextEntry
+              returnKeyType="next"
+              onSubmitEditing={() => inputConfirmPassword.current.focus()}
+              ref={inputPassword}
               onChangeText={(e) => setPassword(e)}
             />
             <TextInput
@@ -61,6 +81,8 @@ export default function Register() {
               autoCorrect={false}
               autoCapitalize="none"
               secureTextEntry
+              ref={inputConfirmPassword}
+              returnKeyType="go"
               onChangeText={(e) => setConfirmPassword(e)}
             />
             <TouchableOpacity
@@ -145,6 +167,6 @@ export default function Register() {
           </View>
         </ScrollView>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
