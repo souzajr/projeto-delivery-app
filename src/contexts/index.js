@@ -4,11 +4,12 @@ import { SplashScreen } from 'expo';
 import * as Facebook from 'expo-facebook';
 import * as Google from 'expo-google-app-auth';
 
-export const AuthContext = createContext();
+export const Context = createContext();
 
-export default function AuthProvider({ children }) {
+export default function ContextProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [cart, setCart] = useState(false);
 
   useEffect(() => {
     SplashScreen.preventAutoHide();
@@ -123,8 +124,12 @@ export default function AuthProvider({ children }) {
     }
   }
 
+  function openOrCloseCart() {
+    setCart(!!cart);
+  }
+
   return (
-    <AuthContext.Provider value={{
+    <Context.Provider value={{
       signed: !!user,
       user,
       loginLocal,
@@ -133,9 +138,11 @@ export default function AuthProvider({ children }) {
       loginGoogle,
       removeUser,
       loading,
+      cart,
+      openOrCloseCart,
     }}
     >
       {children}
-    </AuthContext.Provider>
+    </Context.Provider>
   );
 }

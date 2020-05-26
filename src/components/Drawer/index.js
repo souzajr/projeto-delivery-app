@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import {
   DrawerContentScrollView, DrawerItemList, DrawerItem,
 } from '@react-navigation/drawer';
-import { AuthContext } from '../../contexts/auth';
+import { Context } from '../../contexts/index';
 import styles from './styles';
 
 export default function DrawerContent(props) {
-  const { removeUser } = useContext(AuthContext);
+  const { removeUser } = useContext(Context);
 
   return (
     <DrawerContentScrollView {...props}>

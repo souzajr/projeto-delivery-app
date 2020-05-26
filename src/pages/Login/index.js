@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AuthContext } from '../../contexts/auth';
+import { Context } from '../../contexts/index';
 
 import styles from './styles';
 
@@ -14,7 +14,7 @@ export default function Login() {
 
   const {
     loginLocal, loginFacebook, loginGoogle, loading,
-  } = useContext(AuthContext);
+  } = useContext(Context);
 
   const navigation = useNavigation();
 

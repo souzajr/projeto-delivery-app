@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { AuthContext } from '../../contexts/auth';
+import { Context } from '../../contexts/index';
 import styles from './styles';
 
 export default function Register() {
@@ -14,7 +14,7 @@ export default function Register() {
 
   const {
     registerLocal, loginFacebook, loginGoogle, loading,
-  } = useContext(AuthContext);
+  } = useContext(Context);
 
   function handleRegister() {
     if (!email) return alert('Digite seu Email');
