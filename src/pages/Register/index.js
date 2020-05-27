@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Platform,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -28,10 +29,10 @@ export default function Register() {
   } = useContext(Context);
 
   function handleRegister() {
-    if (!email) return alert('Digite seu Email');
-    if (!password) return alert('Digite sua senha');
-    if (!confirmPassword) return alert('Digite a confirmação da senha');
-    if (password !== confirmPassword) return alert('A senha e a confirmação de senha precisam ser iguais');
+    if (!email) return Alert.alert('Aviso', 'Digite seu Email');
+    if (!password) return Alert.alert('Aviso', 'Digite sua senha');
+    if (!confirmPassword) return Alert.alert('Aviso', 'Digite a confirmação da senha');
+    if (password !== confirmPassword) return Alert.alert('Aviso', 'A senha e a confirmação de senha precisam ser iguais');
 
     return registerLocal(email, password, confirmPassword);
   }
@@ -86,13 +87,13 @@ export default function Register() {
               onChangeText={(e) => setConfirmPassword(e)}
             />
             <TouchableOpacity
-              style={loading ? {
+              style={loading.email ? {
                 ...styles.authButtonLoading,
                 ...styles.emailAuthButton,
               } : { ...styles.authButton, ...styles.emailAuthButton }}
               onPress={handleRegister}
             >
-              {loading ? (
+              {loading.email ? (
                 <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
@@ -113,13 +114,13 @@ export default function Register() {
               )}
             </TouchableOpacity>
             <TouchableOpacity
-              style={loading ? {
+              style={loading.facebook ? {
                 ...styles.authButtonLoading,
                 ...styles.facebookAuthButton,
               } : { ...styles.authButton, ...styles.facebookAuthButton }}
               onPress={() => loginFacebook()}
             >
-              {loading ? (
+              {loading.facebook ? (
                 <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
@@ -140,14 +141,14 @@ export default function Register() {
               )}
             </TouchableOpacity>
             <TouchableOpacity
-              style={loading ? {
+              style={loading.google ? {
                 ...styles.authButtonLoading,
                 ...styles.googleAuthButton,
               } : { ...styles.authButton, ...styles.googleAuthButton }}
               onPress={() => loginGoogle()}
             >
-              {loading ? (
-                <ActivityIndicator size={25} color="#777" />
+              {loading.google ? (
+                <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
                   <View style={styles.viewIcon}>

@@ -1,5 +1,22 @@
 {
   "main": "node_modules/expo/AppEntry.js",
+  "name": "app-projeto-delivery",
+  "description": "Aplicativo do Projeto Delivery",
+  "keywords": [
+    "PurpleTech",
+    "React Native",
+    "Expo"
+  ],
+  "author": "PurpleTech - https://purpletech.com.br",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/souzajr/projeto-delivery-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/souzajr/projeto-delivery-app/issues"
+  },
+  "homepage": "https://github.com/souzajr/projeto-delivery-app#readme",
   "scripts": {
     "start": "expo start",
     "android": "expo start --android",

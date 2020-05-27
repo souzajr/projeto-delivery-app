@@ -8,7 +8,9 @@ export const Context = createContext();
 
 export default function ContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState({
+    email: false, facebook: false, google: false,
+  });
 
   useEffect(() => {
     SplashScreen.preventAutoHide();
@@ -34,7 +36,7 @@ export default function ContextProvider({ children }) {
   }
 
   async function loginLocal(email, password) {
-    setLoading(true);
+    setLoading({ email: true, facebook: false, google: false });
     // chamar API
     // passar email, password
     // armazenar usuario em 'setUser(user)'
@@ -45,11 +47,11 @@ export default function ContextProvider({ children }) {
 
     setUser(data);
     persistUser(data);
-    setLoading(false);
+    setLoading({ email: false, facebook: false, google: false });
   }
 
   async function registerLocal(email, password, confirmPassword) {
-    setLoading(true);
+    setLoading({ email: true, facebook: false, google: false });
     // chamar API
     // passar email, password, confirmPassword
     // armazenar usuario em 'setUser(user)'
@@ -60,11 +62,11 @@ export default function ContextProvider({ children }) {
 
     setUser(data);
     persistUser(data);
-    setLoading(false);
+    setLoading({ email: false, facebook: false, google: false });
   }
 
   async function loginFacebook() {
-    setLoading(true);
+    setLoading({ email: false, facebook: true, google: false });
 
     try {
       await Facebook.initializeAsync('<APP_ID>');
@@ -82,20 +84,20 @@ export default function ContextProvider({ children }) {
 
         setUser({ data });
         persistUser({ data });
-        setLoading(false);
+        setLoading({ email: false, facebook: false, google: false });
         return {};
       }
 
-      setLoading(false);
+      setLoading({ email: false, facebook: false, google: false });
       return {};
     } catch ({ message }) {
-      setLoading(false);
+      setLoading({ email: false, facebook: false, google: false });
       return {};
     }
   }
 
   async function loginGoogle() {
-    setLoading(true);
+    setLoading({ email: false, facebook: false, google: true });
 
     try {
       const result = await Google.logInAsync({
@@ -111,16 +113,24 @@ export default function ContextProvider({ children }) {
 
         setUser(data);
         persistUser(data);
-        setLoading(false);
+        setLoading({ email: false, facebook: false, google: false });
         return {};
       }
 
-      setLoading(false);
+      setLoading({ email: false, facebook: false, google: false });
       return {};
     } catch (e) {
-      setLoading(false);
+      setLoading({ email: false, facebook: false, google: false });
       return {};
     }
+  }
+
+  async function changeEmail(newEmail) {
+    user.email = newEmail;
+
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+    setUser(user);
   }
 
   return (
@@ -133,6 +143,7 @@ export default function ContextProvider({ children }) {
       loginGoogle,
       removeUser,
       loading,
+      changeEmail,
     }}
     >
       {children}

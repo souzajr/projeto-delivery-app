@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   Platform,
   KeyboardAvoidingView,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -29,9 +30,9 @@ export default function Login() {
   const navigation = useNavigation();
 
   function handleLogin() {
-    if (!email) return alert('Digite seu Email');
+    if (!email) return Alert.alert('Aviso', 'Digite seu Email');
 
-    if (!password) return alert('Digite sua senha');
+    if (!password) return Alert.alert('Aviso', 'Digite sua senha');
 
     return loginLocal(email, password);
   }
@@ -74,13 +75,13 @@ export default function Login() {
               onChangeText={(e) => setPassword(e)}
             />
             <TouchableOpacity
-              style={loading ? {
+              style={loading.email ? {
                 ...styles.authButtonLoading,
                 ...styles.emailAuthButton,
               } : { ...styles.authButton, ...styles.emailAuthButton }}
               onPress={handleLogin}
             >
-              {loading ? (
+              {loading.email ? (
                 <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
@@ -101,13 +102,13 @@ export default function Login() {
               )}
             </TouchableOpacity>
             <TouchableOpacity
-              style={loading ? {
+              style={loading.facebook ? {
                 ...styles.authButtonLoading,
                 ...styles.facebookAuthButton,
               } : { ...styles.authButton, ...styles.facebookAuthButton }}
               onPress={() => loginFacebook()}
             >
-              {loading ? (
+              {loading.facebook ? (
                 <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
@@ -128,14 +129,14 @@ export default function Login() {
               )}
             </TouchableOpacity>
             <TouchableOpacity
-              style={loading ? {
+              style={loading.google ? {
                 ...styles.authButtonLoading,
                 ...styles.googleAuthButton,
               } : { ...styles.authButton, ...styles.googleAuthButton }}
               onPress={() => loginGoogle()}
             >
-              {loading ? (
-                <ActivityIndicator size={25} color="#777" />
+              {loading.google ? (
+                <ActivityIndicator size={25} color="#fff" />
               ) : (
                 <>
                   <View style={styles.viewIcon}>

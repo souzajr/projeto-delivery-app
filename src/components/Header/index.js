@@ -42,28 +42,26 @@ export default function Header() {
           </TouchableWithoutFeedback>
         </View>
       </View>
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent
-          visible={modalVisible}
-          presentationStyle="overFullScreen"
-          onRequestClose={() => setModalVisible(false)}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>Hello World!</Text>
+      <Modal
+        animationType="slide"
+        transparent
+        visible={modalVisible}
+        presentationStyle="overFullScreen"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalContainer}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>Hello World!</Text>
 
-              <TouchableWithoutFeedback
-                style={styles.openButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableWithoutFeedback>
-            </View>
+            <TouchableWithoutFeedback
+              style={styles.openButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.textStyle}>Hide Modal</Text>
+            </TouchableWithoutFeedback>
           </View>
-        </Modal>
-      </View>
+        </View>
+      </Modal>
     </>
   );
 }

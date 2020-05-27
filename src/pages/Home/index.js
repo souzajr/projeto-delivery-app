@@ -5,7 +5,7 @@ import {
 import styles from './styles';
 import Header from '../../components/Header/index';
 import ScrollHorizontalProduct from '../../components/ScrollHorizontalProduct/index';
-import ScrollVerticalProduct from '../../components/ScrollVerticalProduct/index';
+import VerticalProducts from '../../components/VerticalProducts/index';
 
 export default function Home() {
   return (
@@ -19,7 +19,7 @@ export default function Home() {
           />
         </View>
         <ScrollHorizontalProduct />
-        <ScrollVerticalProduct />
+        <VerticalProducts />
       </ScrollView>
     </View>
   );
