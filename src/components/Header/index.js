@@ -8,7 +8,7 @@ import {
 
 import { useNavigation } from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 import styles from './styles';
 
@@ -24,8 +24,8 @@ export default function Header() {
           onPress={() => navigation.toggleDrawer()}
         >
           <Icon
-            name="bars"
-            size={30}
+            name="menu"
+            size={27}
             color="#fff"
           />
         </TouchableWithoutFeedback>
@@ -35,8 +35,8 @@ export default function Header() {
             onPress={() => setModalVisible(true)}
           >
             <Icon
-              name="shopping-cart"
-              size={30}
+              name="bag"
+              size={27}
               color="#fff"
             />
           </TouchableWithoutFeedback>
