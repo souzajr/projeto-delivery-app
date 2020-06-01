@@ -1,14 +1,15 @@
-import React, { useState, useContext } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Text,
   View,
   ScrollView,
-  TextInput,
   ActivityIndicator,
   TouchableOpacity,
+  Alert,
 } from 'react-native';
 
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
+import { useNavigation } from '@react-navigation/native';
 import PlacesInput from 'react-native-places-input';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import Header from '../../components/Header/index';
@@ -16,23 +17,56 @@ import styles from './styles';
 
 import { Context } from '../../contexts/index';
 
-export default function Addresses() {
-  const { user } = useContext(Context);
+export default function Addresses(props) {
+  const navigation = useNavigation();
+
+  const { user, removeAddress } = useContext(Context);
 
   const [search, setSearch] = useState('');
+  const [addresses, setAddresses] = useState(user.address);
   const [loading, setLoading] = useState(false);
 
-  function handleSearch(address, formattedAddress, lat, lng) {
-    console.log(address, lat, lng);
+  useEffect(() => {
+    const getProps = props;
 
+    if (getProps.route.params && getProps.route.params.newAddresses) {
+      setAddresses(getProps.route.params.newAddresses);
+      setSearch('');
+    }
+  }, [props]);
+
+  function handleSearch(address, formattedAddress, lat, lng) {
+    const data = {
+      type: 'create',
+      address,
+      formattedAddress,
+      lat,
+      lng,
+    };
+
+    function distance(lat1, lon1, lat2, lon2) {
+      const p = 0.017453292519943295; // Math.PI / 180
+      const c = Math.cos;
+      const a = 0.5 - c((lat2 - lat1) * p) / 2 + c(lat1 * p) * c(lat2 * p) * (1 - c((lon2 - lon1) * p)) / 2;
+
+      return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+    }
+
+    const checkDistance = distance(-22.9497078, -47.1129784, lat, lng);
+
+    if (checkDistance > 50) {
+      return Alert.alert('Aviso', 'Desculpe, não atendemos nesse endereço');
+    }
+
+    return navigation.navigate('Editar endereço', { data });
+  }
+
+  async function handleRemoveAddress(id) {
     setLoading(true);
 
-    user.address = [{
-      id: 1,
-      location: address,
-    }];
+    const newAddresses = await removeAddress(id);
 
-    setSearch('');
+    setAddresses(newAddresses);
 
     setLoading(false);
   }
@@ -47,9 +81,9 @@ export default function Addresses() {
           googleApiKey={GOOGLE_API_KEY}
           placeHolder="Pesquisar endereço"
           language="pt-BR"
-          queryCountries={['br']}
           query={search}
           onChangeText={(e) => setSearch(e)}
+          queryCountries={['br']}
           onSelect={(place) => handleSearch(
             place.result.name,
             place.result.formatted_address,
@@ -92,10 +126,10 @@ export default function Addresses() {
       </View>
       <View style={styles.hrContainer}><View style={styles.hr} /></View>
       <View style={styles.addressesContainer}>
-        {user.address?.length
+        {addresses?.length
           ? (
             <ScrollView style={styles.addressSection}>
-              {user.address.map((address) => (
+              {addresses.map((address) => (
                 <View
                   key={address.id}
                   style={styles.addressBox}
@@ -103,49 +137,55 @@ export default function Addresses() {
                   <View style={styles.addressSeparator}>
                     <View style={styles.addressBoxName}>
                       <Text style={styles.addressText}>
-                        {address.location}
+                        {address.address}
                       </Text>
                     </View>
                     <View style={styles.addressBoxConfig}>
-                      <Icon
-                        name="trash"
-                        size={18}
-                        color="#CB3F3F"
-                      />
+                      {loading ? (
+                        <ActivityIndicator
+                          size={18}
+                          color="#CB3F3F"
+                          style={{ left: -10 }}
+                        />
+                      ) : (
+                        <TouchableOpacity
+                          onPress={() => handleRemoveAddress(address.id)}
+                        >
+                          <Icon
+                            name="trash"
+                            size={18}
+                            color="#CB3F3F"
+                          />
+                        </TouchableOpacity>
+                      )}
                     </View>
                   </View>
-                  <View style={{ ...styles.addressSeparator, marginTop: 15 }}>
-                    <TextInput
-                      placeholder="Número"
-                      style={styles.inputNumber}
-                      placeholderTextColor="#777"
-                      autoCorrect={false}
-                      autoCapitalize="none"
-                      returnKeyType="go"
-                      onChangeText={() => {}}
-                    />
-                    <TextInput
-                      placeholder="Complemento"
-                      style={styles.inputComplement}
-                      placeholderTextColor="#777"
-                      autoCorrect={false}
-                      autoCapitalize="none"
-                      returnKeyType="go"
-                      onChangeText={() => {}}
-                    />
-                  </View>
-                  <TouchableOpacity
-                    style={styles.addressButton}
-                    onPress={() => {}}
-                  >
-                    {loading ? (
-                      <ActivityIndicator size={25} color="#fff" />
-                    ) : (
-                      <Text style={styles.addressButtonText}>
-                        Salvar
+                  <View style={{ marginTop: 15 }}>
+                    <Text style={styles.addressNumber}>
+                      {`Número: ${address.number}`}
+                    </Text>
+                    <Text style={styles.addressComplement}>
+                      {address.complement ? `Complemento: ${address.complement}` : ''}
+                    </Text>
+                    <TouchableOpacity
+                      onPress={() => navigation.navigate('Editar endereço', {
+                        data: {
+                          type: 'change',
+                          id: address.id,
+                          address: address.address,
+                          formattedAddress: address.formattedAddress,
+                          lat: address.lat,
+                          lng: address.lng,
+                          number: address.number,
+                          complement: address.complement,
+                        },
+                      })}
+                    >
+                      <Text style={styles.editAddress}>
+                        Editar
                       </Text>
-                    )}
-                  </TouchableOpacity>
+                    </TouchableOpacity>
+                  </View>
                 </View>
               ))}
             </ScrollView>

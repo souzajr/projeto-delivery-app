@@ -130,7 +130,48 @@ export default function ContextProvider({ children }) {
 
     await AsyncStorage.removeItem('user');
     await AsyncStorage.setItem('user', JSON.stringify(user));
+
     setUser(user);
+  }
+
+  async function changeOrAddAddress(data) {
+    if (data.type === 'create') {
+      user.address && user.address.length
+        ? user.address.push(data)
+        : user.address = [{ ...data }];
+    } else {
+      for (let i = 0; i < user.address.length; i++) {
+        if (user.address[i].id === data.id) {
+          user.address[i].number = data.number;
+          user.address[i].complement = data.complement;
+        }
+      }
+    }
+
+    await AsyncStorage.removeItem('user');
+    await AsyncStorage.setItem('user', JSON.stringify(user));
+
+    setUser(user);
+
+    return user.address;
+  }
+
+  async function removeAddress(id) {
+    if (user.address.length) {
+      for (let i = 0; i < user.address.length; i++) {
+        if (user.address[i].id === id) {
+          user.address.splice(i, 1);
+          break;
+        }
+      }
+
+      await AsyncStorage.removeItem('user');
+      await AsyncStorage.setItem('user', JSON.stringify(user));
+
+      setUser(user);
+    }
+
+    return user.address;
   }
 
   return (
@@ -144,6 +185,8 @@ export default function ContextProvider({ children }) {
       removeUser,
       loading,
       changeEmail,
+      changeOrAddAddress,
+      removeAddress,
     }}
     >
       {children}

@@ -1,17 +1,24 @@
 import React from 'react';
+
+import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import DrawerContent from '../components/Drawer/index';
 import Home from '../pages/Home/index';
+import Orders from '../pages/Orders/index';
 import Profile from '../pages/Profile/index';
 import Coupons from '../pages/Coupons/index';
 import Addresses from '../pages/Addresses/index';
+import EditAddress from '../pages/EditAddress/index';
+import Product from '../pages/Product/index';
 
 const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
-export default function AppRoutes() {
+function DrawerRoute() {
   return (
     <Drawer.Navigator
+      initialRouteName="Home"
       drawerStyle={{
         backgroundColor: '#fff',
       }}
@@ -33,6 +40,10 @@ export default function AppRoutes() {
         component={Home}
       />
       <Drawer.Screen
+        name="Pedidos"
+        component={Orders}
+      />
+      <Drawer.Screen
         name="Perfil"
         component={Profile}
       />
@@ -45,5 +56,27 @@ export default function AppRoutes() {
         component={Addresses}
       />
     </Drawer.Navigator>
+  );
+}
+
+export default function AppRoutes() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Drawer"
+        options={{ headerShown: false }}
+        component={DrawerRoute}
+      />
+      <Stack.Screen
+        name="Editar endereço"
+        options={{ headerShown: false }}
+        component={EditAddress}
+      />
+      <Stack.Screen
+        name="Produto"
+        options={{ headerShown: false }}
+        component={Product}
+      />
+    </Stack.Navigator>
   );
 }

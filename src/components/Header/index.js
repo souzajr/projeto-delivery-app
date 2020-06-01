@@ -1,38 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   View,
   Text,
   TouchableWithoutFeedback,
-  Modal,
 } from 'react-native';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 
 import styles from './styles';
 
 export default function Header() {
-  const [modalVisible, setModalVisible] = useState(false);
-
   const navigation = useNavigation();
+  const route = useRoute();
+
+  function checkRoute() {
+    return route.name === 'Editar endereço' || route.name === 'Produto';
+  }
 
   return (
     <>
       <View style={styles.container}>
         <TouchableWithoutFeedback
-          onPress={() => navigation.toggleDrawer()}
+          onPress={() => (
+            checkRoute()
+              ? navigation.goBack()
+              : navigation.toggleDrawer()
+          )}
         >
           <Icon
-            name="menu"
-            size={27}
+            name={checkRoute() ? 'arrow-left' : 'menu'}
+            size={checkRoute() ? 20 : 27}
+            style={checkRoute() ? { marginTop: 4 } : ''}
             color="#fff"
           />
         </TouchableWithoutFeedback>
         <View style={styles.cart}>
           <Text style={styles.price}>R$10,00</Text>
           <TouchableWithoutFeedback
-            onPress={() => setModalVisible(true)}
+            onPress={() => {}}
           >
             <Icon
               name="bag"
@@ -42,26 +49,6 @@ export default function Header() {
           </TouchableWithoutFeedback>
         </View>
       </View>
-      <Modal
-        animationType="slide"
-        transparent
-        visible={modalVisible}
-        presentationStyle="overFullScreen"
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalView}>
-            <Text style={styles.modalText}>Hello World!</Text>
-
-            <TouchableWithoutFeedback
-              style={styles.openButton}
-              onPress={() => setModalVisible(false)}
-            >
-              <Text style={styles.textStyle}>Hide Modal</Text>
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
-      </Modal>
     </>
   );
 }

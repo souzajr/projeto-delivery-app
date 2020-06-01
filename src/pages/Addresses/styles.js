@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
   addressBox: {
     borderColor: '#ddd',
     borderWidth: 1,
+    borderRadius: 4,
     padding: 20,
     marginBottom: 15,
   },
@@ -49,47 +50,23 @@ const styles = StyleSheet.create({
     flex: 1,
     left: 20,
   },
-  addressComplement: {
-  },
   addressText: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#CB3F3F',
   },
-  inputNumber: {
+  addressNumber: {
     flex: 1,
     fontSize: 15,
-    borderBottomWidth: 0.2,
-    borderColor: '#777',
   },
-  inputComplement: {
+  addressComplement: {
     flex: 2,
     fontSize: 15,
-    marginLeft: 15,
-    borderBottomWidth: 0.2,
-    borderColor: '#777',
   },
-  addressButton: {
-    marginTop: 15,
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 10,
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: {
-      width: 4,
-      height: 4,
-    },
-    elevation: 5,
-    alignItems: 'center',
-    backgroundColor: '#CB3F3F',
-    borderColor: '#CB3F3F',
-  },
-  addressButtonText: {
-    fontSize: 21,
-    color: '#fff',
+  editAddress: {
+    fontSize: 15,
+    color: '#CB3F3F',
+    fontStyle: 'italic',
   },
 });
 

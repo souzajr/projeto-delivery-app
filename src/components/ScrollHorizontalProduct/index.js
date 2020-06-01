@@ -2,14 +2,19 @@ import React from 'react';
 import {
   View, Text, Image, TouchableWithoutFeedback, ScrollView,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styles from './styles';
 
 export default function ScrollHorizontalProduct() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.featureContainer}>
       <Text style={styles.featureTitle}>Destaques</Text>
       <ScrollView horizontal>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={() => navigation.navigate('Produto')}
+        >
           <View style={styles.featureProductBox}>
             <Image
               style={styles.featureBoxImage}
