@@ -7,11 +7,12 @@ const styles = StyleSheet.create({
   },
   addressContainer: {
     marginTop: 15,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
   },
   addressBox: {
     borderColor: '#ddd',
     borderWidth: 1,
+    borderRadius: 4,
     padding: 20,
     marginBottom: 15,
   },

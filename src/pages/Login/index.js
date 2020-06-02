@@ -136,7 +136,7 @@ export default function Login() {
               onPress={() => loginGoogle()}
             >
               {loading.google ? (
-                <ActivityIndicator size={25} color="#fff" />
+                <ActivityIndicator size={25} color="#777" />
               ) : (
                 <>
                   <View style={styles.viewIcon}>

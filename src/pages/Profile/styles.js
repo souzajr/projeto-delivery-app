@@ -16,7 +16,7 @@ const styles = StyleSheet.create({
   },
   hrContainer: {
     marginTop: 15,
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   hr: {
     borderBottomColor: 'rgba(112, 112, 112, .3)',
@@ -24,16 +24,16 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     marginTop: 15,
-    marginBottom: -8,
+    marginBottom: -10,
     alignItems: 'flex-start',
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: 10,
   },
   label: {
     fontStyle: 'italic',
     color: '#777',
   },
   input: {
-    width: '85%',
+    width: '95%',
     height: 50,
     fontSize: 21,
     borderColor: '#777',
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   button: {
     flex: 1,
-    width: '85%',
+    width: '95%',
     height: 50,
     borderWidth: 1,
     borderRadius: 4,

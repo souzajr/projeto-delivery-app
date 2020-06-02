@@ -10,7 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header/index';
 import styles from './styles';
 
@@ -68,7 +68,7 @@ export default function Coupons() {
             <Text style={styles.couponTitle}>
               <Icon
                 style={styles.searchIcon}
-                name="tag"
+                name="local-offer"
                 size={15}
                 color="#CB3F3F"
               />
@@ -82,7 +82,7 @@ export default function Coupons() {
             <Text style={styles.couponTitle}>
               <Icon
                 style={styles.searchIcon}
-                name="tag"
+                name="local-offer"
                 size={15}
                 color="#CB3F3F"
               />

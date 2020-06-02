@@ -6,18 +6,41 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   Platform,
-  CheckBox,
   TextInput,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from 'react-native';
 
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header/index';
 import styles from './styles';
 
 export default function Product() {
-  const [quantity, setQuantity] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [quantity, setQuantity] = useState(1);
+
+  function decreaseQuantity() {
+    if (quantity > 1) {
+      let qnty = quantity;
+      qnty--;
+
+      setQuantity(qnty);
+    }
+  }
+
+  function increaseQuantity() {
+    let qnty = quantity;
+    qnty++;
+
+    setQuantity(qnty);
+  }
+
+  function handleSubmit() {
+    setLoading(true);
+
+    setLoading(false);
+  }
 
   return (
     <KeyboardAvoidingView
@@ -35,15 +58,30 @@ export default function Product() {
           </Text>
         </View>
         <View style={styles.hrContainer}><View style={styles.hr} /></View>
-        <View style={{}}>
-          <View>
-            <Text>Escolha uma opção</Text>
-            <Text>Obrigatório</Text>
+        <View style={styles.productOptionsContainer}>
+          <View style={styles.productOptionsTitleContainer}>
+            <Text style={styles.productOptionsTitle}>Nome da opção</Text>
           </View>
-          <View>
-            <Text>Opcional</Text>
-            <CheckBox
-              style={{ color: 'red' }}
+          <View style={styles.productOptionsInnerContainer}>
+            <Text style={styles.productOption}>Opcional</Text>
+            <Icon
+              name="radio-button-unchecked"
+              color="#CB3F3F"
+              size={25}
+            />
+          </View>
+        </View>
+        <View style={styles.hrContainer}><View style={styles.hr} /></View>
+        <View style={styles.productOptionsContainer}>
+          <View style={styles.productOptionsTitleContainer}>
+            <Text style={styles.productOptionsTitle}>Nome da opção</Text>
+          </View>
+          <View style={styles.productOptionsInnerContainer}>
+            <Text style={styles.productOption}>Opcional</Text>
+            <Icon
+              name="radio-button-checked"
+              color="#CB3F3F"
+              size={25}
             />
           </View>
         </View>
@@ -59,8 +97,6 @@ export default function Product() {
             autoCorrect={false}
             autoCapitalize="none"
             returnKeyType="go"
-            multiline
-            numberOfLines={4}
             onChangeText={() => {}}
           />
         </View>
@@ -68,16 +104,10 @@ export default function Product() {
       <View style={styles.bottomContainer}>
         <View style={{ ...styles.quantitySection, marginRight: 25 }}>
           <TouchableWithoutFeedback
-            onPress={() => {
-              let i = quantity;
-              if (i > 0) {
-                i--;
-                setQuantity(i--);
-              }
-            }}
+            onPress={() => decreaseQuantity()}
           >
             <Icon
-              name="minus"
+              name="remove-circle-outline"
               color="#CB3F3F"
               size={25}
             />
@@ -86,14 +116,10 @@ export default function Product() {
             {quantity}
           </Text>
           <TouchableWithoutFeedback
-            onPress={() => {
-              let i = quantity;
-              i++;
-              setQuantity(i);
-            }}
+            onPress={() => increaseQuantity()}
           >
             <Icon
-              name="plus"
+              name="add-circle-outline"
               color="#CB3F3F"
               size={25}
             />
@@ -101,15 +127,26 @@ export default function Product() {
         </View>
         <View style={styles.buttonSection}>
           <TouchableOpacity
-            onPress={() => {}}
-            style={styles.addProductButton}
+            onPress={() => handleSubmit}
+            style={loading
+              ? { ...styles.addProductButton, ...styles.buttonConfigLoading }
+              : { ...styles.addProductButton, ...styles.buttonConfig }}
           >
-            <Text style={styles.buttonText}>
-              R$10,00
-            </Text>
-            <Text style={styles.buttonText}>
-              Adicionar
-            </Text>
+            {loading ? (
+              <ActivityIndicator
+                size={25}
+                color="#fff"
+              />
+            ) : (
+              <>
+                <Text style={styles.buttonText}>
+                  R$10,00
+                </Text>
+                <Text style={styles.buttonText}>
+                  Adicionar
+                </Text>
+              </>
+            )}
           </TouchableOpacity>
         </View>
       </View>

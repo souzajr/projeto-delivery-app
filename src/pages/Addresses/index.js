@@ -11,7 +11,7 @@ import {
 import { GOOGLE_API_KEY } from 'react-native-dotenv';
 import { useNavigation } from '@react-navigation/native';
 import PlacesInput from 'react-native-places-input';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import Header from '../../components/Header/index';
 import styles from './styles';
 
@@ -92,7 +92,7 @@ export default function Addresses(props) {
           )}
           iconResult={(
             <Icon
-              name="location-pin"
+              name="location-on"
               size={20}
               color="#CB3F3F"
             />
@@ -103,7 +103,7 @@ export default function Addresses(props) {
             alignItems: 'center',
           }}
           stylesInput={{
-            width: '90%',
+            width: '100%',
             height: 50,
             fontSize: 21,
             borderColor: '#777',
@@ -114,6 +114,7 @@ export default function Addresses(props) {
           }}
           stylesItemText={{
             color: '#000',
+            marginLeft: '-5%',
           }}
           stylesList={{
             paddingLeft: 25,
@@ -143,17 +144,17 @@ export default function Addresses(props) {
                     <View style={styles.addressBoxConfig}>
                       {loading ? (
                         <ActivityIndicator
-                          size={18}
+                          size={25}
                           color="#CB3F3F"
-                          style={{ left: -10 }}
+                          style={{ left: -12 }}
                         />
                       ) : (
                         <TouchableOpacity
                           onPress={() => handleRemoveAddress(address.id)}
                         >
                           <Icon
-                            name="trash"
-                            size={18}
+                            name="delete"
+                            size={25}
                             color="#CB3F3F"
                           />
                         </TouchableOpacity>

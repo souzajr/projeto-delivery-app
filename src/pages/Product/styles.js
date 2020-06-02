@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   hrContainer: {
     marginTop: 15,
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   productTitle: {
     color: '#CB3F3F',
@@ -22,11 +22,31 @@ const styles = StyleSheet.create({
     marginTop: 15,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   productDescription: {
     color: '#777',
     fontStyle: 'italic',
+  },
+  productOptionsContainer: {
+    paddingHorizontal: 10,
+  },
+  productOptionsTitleContainer: {
+    marginTop: 15,
+    marginBottom: 15,
+  },
+  productOptionsTitle: {
+    color: '#CB3F3F',
+    fontWeight: 'bold',
+    fontSize: 17,
+  },
+  productOption: {
+    color: '#000',
+  },
+  productOptionsInnerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   hr: {
     borderBottomColor: 'rgba(112, 112, 112, .3)',
@@ -34,16 +54,16 @@ const styles = StyleSheet.create({
   },
   labelContainer: {
     marginTop: 15,
-    marginBottom: -8,
+    marginBottom: -10,
     alignItems: 'flex-start',
-    paddingHorizontal: '7.5%',
+    paddingHorizontal: 10,
   },
   label: {
     fontWeight: 'bold',
     color: '#777',
   },
   input: {
-    width: '85%',
+    width: '95%',
     height: 50,
     fontSize: 21,
     borderColor: '#777',
@@ -59,7 +79,7 @@ const styles = StyleSheet.create({
     height: 75,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
   },
   quantitySection: {
     flex: 1,
@@ -76,7 +96,6 @@ const styles = StyleSheet.create({
     fontSize: 21,
   },
   addProductButton: {
-    width: '100%',
     height: 50,
     borderWidth: 1,
     borderRadius: 4,
@@ -90,9 +109,15 @@ const styles = StyleSheet.create({
       height: 4,
     },
     elevation: 5,
+  },
+  buttonConfig: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  buttonConfigLoading: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   buttonText: {
     color: '#fff',

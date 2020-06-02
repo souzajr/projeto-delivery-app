@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    width: '85%',
+    width: '95%',
     height: 50,
     fontSize: 21,
     borderColor: '#777',
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
   button: {
-    width: '85%',
+    width: '95%',
     height: 50,
     borderWidth: 1,
     borderRadius: 4,
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   },
   hrContainer: {
     marginTop: 15,
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   hr: {
     borderBottomColor: 'rgba(112, 112, 112, .3)',
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   couponBox: {
-    width: '85%',
+    width: '95%',
     borderColor: '#ddd',
     borderWidth: 1,
     borderRadius: 4,

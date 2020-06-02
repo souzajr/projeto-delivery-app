@@ -10,14 +10,13 @@ const styles = StyleSheet.create({
   },
   hrContainer: {
     marginTop: 20,
-    paddingHorizontal: 30,
+    paddingHorizontal: 10,
   },
   hr: {
     borderBottomColor: 'rgba(112, 112, 112, .3)',
     borderBottomWidth: 1,
   },
   addressSection: {
-    paddingHorizontal: 20,
   },
   addressesContainer: {
     flex: 10,

@@ -7,7 +7,7 @@ import {
 
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import styles from './styles';
 
@@ -30,8 +30,8 @@ export default function Header() {
           )}
         >
           <Icon
-            name={checkRoute() ? 'arrow-left' : 'menu'}
-            size={checkRoute() ? 20 : 27}
+            name={checkRoute() ? 'keyboard-arrow-left' : 'menu'}
+            size={27}
             style={checkRoute() ? { marginTop: 4 } : ''}
             color="#fff"
           />
@@ -42,7 +42,7 @@ export default function Header() {
             onPress={() => {}}
           >
             <Icon
-              name="bag"
+              name="shopping-cart"
               size={27}
               color="#fff"
             />
