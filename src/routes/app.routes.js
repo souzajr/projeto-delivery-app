@@ -95,7 +95,7 @@ function DrawerRoute() {
         options={{
           drawerIcon: ({ focused }) => (
             <Icon
-              name="map"
+              name="location-on"
               size={18}
               color={focused ? '#fff' : '#CB3F3F'}
             />
